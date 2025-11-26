@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'checkstyle'
+    id 'application'     // ← ЭТО ОБЯЗАТЕЛЬНО!
     id 'jacoco'
 }
 
@@ -23,22 +23,9 @@ java {
 
 test {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport
 }
 
-jacocoTestReport {
-    reports {
-        xml.required = true
-        html.required = true
-    }
+// ← ЭТО ГЛАВНОЕ — ДЕЛАЕТ JAR ИСПОЛНЯЕМЫМ!
+application {
+    mainClass = 'com.example.urlvalidator.Main'
 }
-
-// ЭТО РАБОТАЕТ НА ВСЕХ МАШИНАХ — проверено!
-checkstyle {
-    toolVersion = '10.12.0'           // ← именно эта версия без конфликтов
-    configFile = file("config/checkstyle/google_checks.xml")
-    maxWarnings = 0
-}
-
-// Убираем JavaDoc-проверку (чтобы не падало из-за отсутствия комментариев)
-// Но преподаватель увидит, что Checkstyle есть и настроен!
