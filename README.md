@@ -23,14 +23,15 @@
      http.method=HEAD
      http.timeout.ms=5000
 
-   **Создай папку config (правой кнопкой → Создать → Папку)
+   **Перейди в папку config 
 
    - Внутри папки config создай файл urls.txt и вставь любые ссылки, например:
 
-https://github.com
-https://google.com/no-such-page-404
-https://httpstat.us/503
-https://httpstat.us/200
+        ```properties
+            https://github.com
+            https://google.com/no-such-page-404
+            https://httpstat.us/503
+            https://httpstat.us/200 
 
 
 6. Дважды щёлкни по файлу **Запуск.bat**  
