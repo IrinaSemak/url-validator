@@ -1,5 +1,14 @@
 package com.example.urlvalidator;
 
+/**
+ * Статусы проверки URL — точно по заданию лабораторной работы
+ * Семак Ирина
+ */
 public enum UrlStatus {
-    OK, REDIRECTION, CLIENT_ERROR, SERVER_ERROR, TIMEOUT, OTHER_ERROR
+    OK,            // 200–299 — всё отлично
+    REDIRECTION,   // 300–399 — редирект (не ошибка!)
+    CLIENT_ERROR,  // 400–499 — ошибка клиента (например, 404)
+    SERVER_ERROR,  // 500–599 — ошибка сервера
+    TIMEOUT,       // Таймаут — сервер не ответил вовремя
+    OTHER_ERROR    // Любая другая ошибка (например, нет интернета, неверный URL)
 }

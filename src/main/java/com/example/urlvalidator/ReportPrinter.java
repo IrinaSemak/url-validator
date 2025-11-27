@@ -1,28 +1,23 @@
 package com.example.urlvalidator;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
+/**
+ * Красивый вывод отчёта в консоль
+ * Сначала — плохие ссылки, потом — хорошие
+ * Семак Ирина
+ */
 public class ReportPrinter {
-    public static void printReport(List<UrlResult> results) {
-        Map<UrlStatus, List<UrlResult>> grouped = results.stream()
-                .collect(Collectors.groupingBy(UrlResult::status));
 
-        System.out.println("--- FAILED URLS ---");
-        printGroup(grouped, UrlStatus.CLIENT_ERROR);
-        printGroup(grouped, UrlStatus.SERVER_ERROR);
-        printGroup(grouped, UrlStatus.TIMEOUT);
-        printGroup(grouped, UrlStatus.OTHER_ERROR);
+    public static void print(List<UrlResult> results) {
+        System.out.println("\n--- FAILED URLS ---");
+        results.stream()
+                .filter(r -> r.status() != UrlStatus.OK && r.status() != UrlStatus.REDIRECTION)
+                .forEach(r -> System.out.printf("[%s: %d] %s%n", r.status(), r.code(), r.url()));
 
         System.out.println("\n--- OK URLS ---");
-        printGroup(grouped, UrlStatus.OK);
-        printGroup(grouped, UrlStatus.REDIRECTION);
-    }
-
-    private static void printGroup(Map<UrlStatus, List<UrlResult>> map, UrlStatus status) {
-        List<UrlResult> list = map.getOrDefault(status, List.of());
-        list.stream()
-                .sorted(Comparator.comparingInt(UrlResult::code))
-                .forEach(r -> System.out.printf("[%s: %d] %s%n", status, r.code() == -1 ? 0 : r.code(), r.url()));
+        results.stream()
+                .filter(r -> r.status() == UrlStatus.OK || r.status() == UrlStatus.REDIRECTION)
+                .forEach(r -> System.out.printf("[%s: %d] %s%n", r.status(), r.code(), r.url()));
     }
 }

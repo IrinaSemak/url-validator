@@ -1,3 +1,9 @@
 package com.example.urlvalidator;
 
-public record UrlResult(String url, UrlStatus status, int code) {}
+/**
+ * Результат проверки одного URL
+ * Хранит: сам URL, код ответа и статус
+ * Семак Ирина
+ */
+public record UrlResult(String url, int code, UrlStatus status) {
+}
